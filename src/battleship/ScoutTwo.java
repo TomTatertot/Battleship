@@ -20,7 +20,6 @@ public class ScoutTwo {
     private static int scoutCol;
     private static int scoutRow;
     private static boolean scoutPlaced;
-//    private static int scoutMoved;
     private static int numberPlaced;
     private static sound MisExplo;
 
@@ -31,24 +30,23 @@ public class ScoutTwo {
 
         int zcol = (xpixel-Window.getX(0))/xdelta;
         int zrow = (ypixel-Window.getY(0))/ydelta;
+        
         if (xpixel <  Window.getSideBorder() || ypixel < Window.getTopBorder())
             return; 
+        
         if(zrow < Board.getNUM_ROWS() && zrow > -1 && zcol < Board.getNUM_COLUMNS() && zcol > -1) {
             if(Board.BoardSel() == 2 || Board.BoardSel() == 3)
                 return;
-        if (scoutPlaced)
-            return;
-        
-        scoutCol = zcol;
-        scoutRow = zrow;
+            if (scoutPlaced)
+                return;
 
-        if (scoutActive){
-            sub[zrow][zcol][Board.BoardSel()] = new Piece (Color.green);
-            scoutPlaced = true;
-//            scoutMoved = 0;
-            
-//            scoutActive = false;
-        }
+            scoutCol = zcol;
+            scoutRow = zrow;
+
+            if (scoutActive){
+                sub[zrow][zcol][Board.BoardSel()] = new Piece (Color.green);
+                scoutPlaced = true;
+            }
         }
 
     }
@@ -59,18 +57,18 @@ public class ScoutTwo {
 
         int zcol = (xpixel-Window.getX(0))/xdelta;
         int zrow = (ypixel-Window.getY(0))/ydelta;
+        
         if (xpixel <  Window.getSideBorder() || ypixel < Window.getTopBorder())
             return;
+        
         if(zrow < Board.getNUM_ROWS() && zrow > -1 && zcol < Board.getNUM_COLUMNS() && zcol > -1) {
             if(Board.BoardSel() == 2 || Board.BoardSel() == 3)
                 return;
         
-        if (scoutPlaced)
-            return;
-//        System.out.println("scouthover");
+            if (scoutPlaced)
+                return;
 
-        hover[zrow][zcol][Board.BoardSel()] = new Piece(Color.green);
-//        System.out.println("scoutHover");
+            hover[zrow][zcol][Board.BoardSel()] = new Piece(Color.green);
         }        
     }
     public static void Move(){
@@ -95,10 +93,8 @@ public class ScoutTwo {
     }
     public static void scoutCount(){
         scoutCount++;
-//        System.out.println("scoutCount " + scoutCount);
         if (scoutCount == 2)
         {
-//            System.out.println("scoutActive");
             scoutActive = true;
         }
 
@@ -123,9 +119,8 @@ public class ScoutTwo {
             return;
         if (!scoutPlaced)
             return;
-        boolean validMovement = true;
         
-//        sub[scoutRow][scoutCol][Board.BoardSel()] = new Piece (Color.green);
+        boolean validMovement = true;
         
         if (keyPressed == 1){
             if (scoutRow-1 < 0)
@@ -164,64 +159,22 @@ public class ScoutTwo {
     public static void scoutShoot(){
         if (scoutPlaced)
         {
-            if(Board.MisCollision(scoutRow, scoutCol)){
-
-            Board.ExplosionSound_HIT(scoutRow, scoutCol);
-            Board.RemovePiecePixel_HIT(scoutRow, scoutCol);
-
-//            if(Board.TurnsCheck());
-//                Levels.SwitchLevel();
-//            }
+            if(Board.MisCollision(scoutRow, scoutCol))
+            {
+                Board.ExplosionSound_HIT(scoutRow, scoutCol);
+                Board.RemovePiecePixel_HIT(scoutRow, scoutCol);
             }
             else
             {
-//                                    if (Scout.getScoutActive())
-//                                        Scout.scoutAdd(e.getX(),e.getY());
-            Board.ExplosionSound_MISS(scoutRow, scoutCol);
-            Board.RemovePiecePixel_MISS(scoutRow, scoutCol);
-
+                Board.ExplosionSound_MISS(scoutRow, scoutCol);
+                Board.RemovePiecePixel_MISS(scoutRow, scoutCol);
             }
-//            numberPlaced++;
-//            if (ship[scoutRow][scoutCol][Board.BoardSel()] != null)
-//            {
-//                if (ship[scoutRow][scoutCol][Board.BoardSel()].getColor() == Color.white)
-//                {
-//                    ship[scoutRow][scoutCol][Board.BoardSel()] = new Piece (Color.gray);
-//                    scoutMoved = 0;
-//                    
-//                    
-//                }
-//                else
-//                {
-//                    ship[scoutRow][scoutCol][Board.BoardSel()] = new Piece (Color.BLUE);
-//                    Board.BoardSwitch();
-//                    Player.SwitchTurn();
-//                    scoutPlaced = false;
-//                    numberPlaced++;
-//                    sub[scoutRow][scoutCol][Board.BoardSel()] = null;
-//                }
-//            }
-//            else
-//            {
-//                ship[scoutRow][scoutCol][Board.BoardSel()] = new Piece (Color.BLUE);
-//                Board.BoardSwitch();
-//                Player.SwitchTurn();
-//                scoutPlaced = false;
-//                numberPlaced++;
-//                sub[scoutRow][scoutCol][Board.BoardSel()] = null;
-//            }
-//            sub[scoutRow][scoutCol][Board.BoardSel()] = null;
-//            scoutActive = false;
-//            Board.BoardSwitch();
-//            Player.SwitchTurn();
-//            scoutPlaced = false;
+            
             if (numberPlaced ==2)
             {
                 scoutActive = false;
             }
-            
         }
-        
     }
     public static void Reset(){
         scoutActive = false;
